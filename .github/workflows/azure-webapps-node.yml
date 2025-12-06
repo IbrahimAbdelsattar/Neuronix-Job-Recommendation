@@ -1,0 +1,31 @@
+{
+  "name": "neuronix-ai-backend",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.75.1",
+    "axios": "^1.7.9",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "mammoth": "^1.7.2",
+    "multer": "^1.4.5-lts.1",
+    "openai": "^4.52.7",
+    "pdf-parse": "^1.1.1",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/multer": "^1.4.12",
+    "@types/node": "^22.16.5",
+    "@types/pdf-parse": "^1.1.4",
+    "tsx": "^4.19.2",
+    "typescript": "^5.8.3"
+  }
+}

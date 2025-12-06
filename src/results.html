@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recommended Jobs - Neuronix AI JobFlow</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container nav-content">
+            <a href="index.html" class="nav-brand">
+                <i data-lucide="brain" class="text-primary"></i>
+                <span style="background: linear-gradient(to right, hsl(var(--primary)), hsl(var(--accent))); -webkit-background-clip: text; color: transparent;">Neuronix AI Solutions</span>
+            </a>
+            <div class="nav-links" style="gap: 1rem;">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="services.html" class="nav-link">Services</a>
+                <a href="team.html" class="nav-link">Team</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+                <button class="theme-toggle" type="button" aria-label="Toggle color theme">
+                    <i data-lucide="moon" class="theme-icon theme-icon-moon"></i>
+                    <i data-lucide="sun" class="theme-icon theme-icon-sun"></i>
+                </button>
+                
+                <!-- Auth Buttons (shown when not logged in) -->
+                <div id="authButtons" style="display: flex; gap: 0.5rem;">
+                    <a href="signup.html" class="btn btn-primary">Try for Free</a>
+                </div>
+                
+                <!-- User Dropdown (shown when logged in) -->
+                <div id="userDropdown" style="display: none; position: relative;">
+                    <button id="userMenuBtn" style="display: flex; align-items: center; gap: 0.5rem; background: none; border: none; cursor: pointer; padding: 0.5rem; border-radius: var(--radius); transition: background 0.2s;" onmouseover="this.style.background='hsl(var(--muted))'" onmouseout="this.style.background='none'">
+                        <div id="userPhoto"></div>
+                        <span id="userName" style="font-weight: 600; color: hsl(var(--foreground));"></span>
+                        <i data-lucide="chevron-down" style="width: 1rem; height: 1rem;"></i>
+                    </button>
+                    
+                    <div id="dropdownMenu" style="display: none; position: absolute; right: 0; top: 100%; margin-top: 0.5rem; background: hsl(var(--card)); border: 1px solid hsl(var(--border)); border-radius: var(--radius); box-shadow: 0 10px 40px rgba(0,0,0,0.1); min-width: 200px; z-index: 1000;">
+                        <a href="profile.html" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; color: hsl(var(--foreground)); transition: background 0.2s;" onmouseover="this.style.background='hsl(var(--muted))'" onmouseout="this.style.background='transparent'">
+                            <i data-lucide="user" style="width: 1.25rem; height: 1.25rem;"></i>
+                            <span>Profile</span>
+                        </a>
+                        <a href="history.html" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; color: hsl(var(--foreground)); transition: background 0.2s;" onmouseover="this.style.background='hsl(var(--muted))'" onmouseout="this.style.background='transparent'">
+                            <i data-lucide="clock" style="width: 1.25rem; height: 1.25rem;"></i>
+                            <span>History</span>
+                        </a>
+                        <a href="saved-jobs.html" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; color: hsl(var(--foreground)); transition: background 0.2s;" onmouseover="this.style.background='hsl(var(--muted))'" onmouseout="this.style.background='transparent'">
+                            <i data-lucide="bookmark" style="width: 1.25rem; height: 1.25rem;"></i>
+                            <span>Saved Jobs</span>
+                        </a>
+                        <div style="border-top: 1px solid hsl(var(--border)); margin: 0.5rem 0;"></div>
+                        <a href="#" id="logoutBtn" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; color: hsl(var(--destructive)); transition: background 0.2s;" onmouseover="this.style.background='hsl(var(--muted))'" onmouseout="this.style.background='transparent'">
+                            <i data-lucide="log-out" style="width: 1.25rem; height: 1.25rem;"></i>
+                            <span>Logout</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="min-h-screen pt-32 pb-20">
+        <div class="container" style="max-width: 64rem;">
+            <div class="text-center mb-12">
+                <h1 class="text-4xl font-bold mb-4">Recommended <span class="text-primary">Jobs</span></h1>
+                <p class="text-lg text-muted-foreground">Based on your profile, we found <span id="jobCount">0</span> matching opportunities</p>
+                <button id="exportPdfBtn" class="btn btn-primary mt-4" style="gap: 0.5rem;">
+                    <i data-lucide="download" style="width: 1rem; height: 1rem;"></i>
+                    Export to PDF
+                </button>
+            </div>
+
+            <div class="space-y-6" id="jobsContainer">
+                <!-- Jobs will be injected here -->
+            </div>
+
+            <div class="mt-12 text-center">
+                <div class="card" style="background: linear-gradient(to right, rgba(var(--primary), 0.1), rgba(var(--accent), 0.1)); padding: 1.5rem;">
+                    <p class="text-lg mb-4">Want more personalized results?</p>
+                    <div class="flex gap-4 justify-center" style="flex-wrap: wrap;">
+                        <a href="structured.html" class="btn btn-outline">New Search</a>
+                        <a href="saved-jobs.html" class="btn btn-primary">View Saved Jobs</a>
+                    </div>
+                </div>
+            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="flex items-center gap-2">
+                <i data-lucide="brain" class="text-primary"></i>
+                <span class="font-bold text-lg">Neuronix AI Solutions</span>
+            </div>
+            <p class="text-muted-foreground text-center" style="font-size: 0.875rem;">Empowering the Future with AI</p>
+            <p class="text-muted-foreground" style="font-size: 0.75rem;">© 2025 Neuronix AI Solutions. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="theme-toggle.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+
+    <script type="module">
+        import { showToast, apiCall } from './app.js';
+
+        const user = JSON.parse(localStorage.getItem('user') || 'null');
+        const storedJobs = localStorage.getItem('jobResults');
+        let jobs = [];
+        
+        if (storedJobs) {
+            try {
+                jobs = JSON.parse(storedJobs);
+            } catch (e) {
+                console.error("Failed to parse jobs", e);
+            }
+        }
+
+        if (jobs.length === 0) {
+            document.getElementById('jobsContainer').innerHTML = `
+                <div class="text-center py-12">
+                    <p class="text-muted-foreground text-lg">No recommendations found. Please submit a search first.</p>
+                    <a href="structured.html" class="btn btn-primary mt-4">Go to Search</a>
+                </div>
+            `;
+        }
+
+        const container = document.getElementById('jobsContainer');
+        document.getElementById('jobCount').textContent = jobs.length;
+
+        jobs.forEach(job => {
+            const card = document.createElement('div');
+            card.className = 'card hover:shadow-lg transition-all duration-300';
+            card.style.padding = '1.5rem';
+            
+            let matchColorStyle = '';
+            const matchScore = job.match_score || job.match || 0;
+            
+            if (matchScore >= 90) matchColorStyle = 'color: #22c55e;';
+            else if (matchScore >= 80) matchColorStyle = 'color: #3b82f6;';
+            else if (matchScore >= 70) matchColorStyle = 'color: #eab308;';
+            else matchColorStyle = 'color: #6b7280;';
+
+            card.innerHTML = `
+                <div class="flex flex-col md:flex-row gap-6">
+                    <div style="flex: 1;">
+                        <div class="flex items-start justify-between mb-3">
+                            <div>
+                                <h3 class="text-2xl font-bold mb-2">${job.title}</h3>
+                                <p class="text-lg text-muted-foreground font-semibold">${job.company}</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-4xl font-bold" style="${matchColorStyle}">${matchScore}%</div>
+                                <p class="text-xs text-muted-foreground">Match</p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-3 mb-4" style="flex-wrap: wrap;">
+                            <div class="flex items-center gap-1 text-sm text-muted-foreground">
+                                <i data-lucide="map-pin" style="width: 1rem; height: 1rem;"></i>
+                                ${job.location}
+                            </div>
+                            <div class="flex items-center gap-1 text-sm text-muted-foreground">
+                                <i data-lucide="dollar-sign" style="width: 1rem; height: 1rem;"></i>
+                                ${job.salary || 'Not specified'}
+                            </div>
+                            <div class="flex items-center gap-1 text-sm text-muted-foreground">
+                                <i data-lucide="globe" style="width: 1rem; height: 1rem;"></i>
+                                ${job.platform || 'Unknown'}
+                            </div>
+                        </div>
+
+                        <p class="text-muted-foreground mb-4 leading-relaxed">${job.description}</p>
+
+                        <div class="flex gap-2 mb-4" style="flex-wrap: wrap;">
+                            ${(job.skills || []).map(skill => `
+                                <span class="badge" style="background-color: hsl(var(--secondary)); color: hsl(var(--secondary-foreground)); padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 600;">
+                                    ${skill}
+                                </span>
+                            `).join('')}
+                        </div>
+
+                        <div class="flex gap-2">
+                            <a href="${job.url || job.linkedin || '#'}" target="_blank" rel="noopener noreferrer" style="display: inline-block; text-decoration: none;">
+                                <button class="btn btn-primary" style="gap: 0.5rem;">
+                                    <i data-lucide="briefcase" style="width: 1rem; height: 1rem;"></i>
+                                    View Job
+                                    <i data-lucide="external-link" style="width: 1rem; height: 1rem;"></i>
+                                </button>
+                            </a>
+                            ${user ? `
+                                <button class="btn btn-outline" onclick="saveJob(${job.id})" style="gap: 0.5rem;">
+                                    <i data-lucide="bookmark" style="width: 1rem; height: 1rem;"></i>
+                                    Save Job
+                                </button>
+                            ` : ''}
+                        </div>
+                    </div>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+
+        lucide.createIcons();
+
+        // Save job function
+        window.saveJob = async function(jobId) {
+            if (!user) {
+                showToast('Please login to save jobs', 'error');
+                return;
+            }
+
+            try {
+                const response = await apiCall('/api/user/save-job', 'POST', {
+                    user_id: user.id,
+                    job_result_id: jobId
+                });
+
+                if (response.status === 'success') {
+                    showToast('Job saved successfully!');
+                } else {
+                    throw new Error(response.message || 'Failed to save job');
+                }
+            } catch (error) {
+                console.error(error);
+                showToast(error.message || 'Failed to save job', 'error');
+            }
+        };
+
+        // Export PDF function
+        document.getElementById('exportPdfBtn').addEventListener('click', async () => {
+            const btn = document.getElementById('exportPdfBtn');
+            btn.disabled = true;
+            btn.textContent = 'Generating PDF...';
+
+            try {
+                const response = await fetch('http://localhost:5000/api/export/pdf', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        jobs: jobs,
+                        user_name: user ? user.full_name || user.email : 'User'
+                    })
+                });
+
+                if (response.ok) {
+                    const blob = await response.blob();
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `job_recommendations_${new Date().toISOString().split('T')[0]}.pdf`;
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                    document.body.removeChild(a);
+                    showToast('PDF downloaded successfully!');
+                } else {
+                    throw new Error('Failed to generate PDF');
+                }
+            } catch (error) {
+                console.error(error);
+                showToast('Failed to export PDF', 'error');
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i data-lucide="download" style="width: 1rem; height: 1rem;"></i> Export to PDF';
+                lucide.createIcons();
+            }
+        });
+    </script>
+    
+    <script type="module">
+        import { initNavbar, logout } from './auth.js';
+        
+        // Initialize navbar
+        document.addEventListener('DOMContentLoaded', () => {
+            initNavbar();
+            
+            // Setup logout button
+            const logoutBtn = document.getElementById('logoutBtn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    logout();
+                });
+            }
+        });
+    </script>
+</body>
+</html>

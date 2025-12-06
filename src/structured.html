@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Structured Search - Neuronix AI JobFlow</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container nav-content">
+            <a href="index.html" class="nav-brand">
+                <i data-lucide="brain" class="text-primary"></i>
+                <span style="background: linear-gradient(to right, hsl(var(--primary)), hsl(var(--accent))); -webkit-background-clip: text; background-clip: text; color: transparent;">Neuronix AI Solutions</span>
+            </a>
+            <div class="nav-links" style="gap: 1rem;">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="services.html" class="nav-link">Services</a>
+                <a href="team.html" class="nav-link">Team</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+                <button class="theme-toggle" type="button" aria-label="Toggle color theme">
+                    <i data-lucide="moon" class="theme-icon theme-icon-moon"></i>
+                    <i data-lucide="sun" class="theme-icon theme-icon-sun"></i>
+                </button>
+                
+                <!-- Auth Buttons (shown when not logged in) -->
+                <div id="authButtons" style="display: flex; gap: 0.5rem;">
+                    <a href="signup.html" class="btn btn-primary">Try for Free</a>
+                </div>
+                
+                <!-- User Dropdown (shown when logged in) -->
+                <div id="userDropdown" style="display: none; position: relative;">
+                    <button id="userMenuBtn" style="display: flex; align-items: center; gap: 0.5rem; background: none; border: none; cursor: pointer; padding: 0.5rem; border-radius: var(--radius); transition: background 0.2s;" onmouseover="this.style.background='hsl(var(--muted))'" onmouseout="this.style.background='none'">
+                        <div id="userPhoto"></div>
+                        <span id="userName" style="font-weight: 600; color: hsl(var(--foreground));"></span>
+                        <i data-lucide="chevron-down" style="width: 1rem; height: 1rem;"></i>
+                    </button>
+                    
+                    <div id="dropdownMenu" style="display: none; position: absolute; right: 0; top: 100%; margin-top: 0.5rem; background: hsl(var(--card)); border: 1px solid hsl(var(--border)); border-radius: var(--radius); box-shadow: 0 10px 40px rgba(0,0,0,0.1); min-width: 200px; z-index: 1000;">
+                        <a href="profile.html" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; color: hsl(var(--foreground)); transition: background 0.2s;" onmouseover="this.style.background='hsl(var(--muted))'" onmouseout="this.style.background='transparent'">
+                            <i data-lucide="user" style="width: 1.25rem; height: 1.25rem;"></i>
+                            <span>Profile</span>
+                        </a>
+                        <a href="history.html" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; color: hsl(var(--foreground)); transition: background 0.2s;" onmouseover="this.style.background='hsl(var(--muted))'" onmouseout="this.style.background='transparent'">
+                            <i data-lucide="clock" style="width: 1.25rem; height: 1.25rem;"></i>
+                            <span>History</span>
+                        </a>
+                        <a href="saved-jobs.html" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; color: hsl(var(--foreground)); transition: background 0.2s;" onmouseover="this.style.background='hsl(var(--muted))'" onmouseout="this.style.background='transparent'">
+                            <i data-lucide="bookmark" style="width: 1.25rem; height: 1.25rem;"></i>
+                            <span>Saved Jobs</span>
+                        </a>
+                        <div style="border-top: 1px solid hsl(var(--border)); margin: 0.5rem 0;"></div>
+                        <a href="#" id="logoutBtn" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; color: hsl(var(--destructive)); transition: background 0.2s;" onmouseover="this.style.background='hsl(var(--muted))'" onmouseout="this.style.background='transparent'">
+                            <i data-lucide="log-out" style="width: 1.25rem; height: 1.25rem;"></i>
+                            <span>Logout</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="min-h-screen pt-32 pb-20">
+        <div class="container max-w-3xl">
+            <div class="text-center mb-12">
+                <h1 class="text-4xl font-bold mb-4">Structured <span class="text-primary">Form</span></h1>
+                <p class="text-muted-foreground text-lg">Fill out the form below and let our AI find your perfect job match</p>
+            </div>
+
+            <div class="card">
+                <form id="structuredForm" class="space-y-6">
+                    <div class="grid md:grid-cols-2">
+                        <div class="space-y-2">
+                            <label for="fullName" class="label">Full Name *</label>
+                            <input type="text" id="fullName" class="input" placeholder="John Doe" required>
+                        </div>
+                        <div class="space-y-2">
+                            <label for="email" class="label">Email *</label>
+                            <input type="email" id="email" class="input" placeholder="john@example.com" required>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label for="position" class="label">Desired Position *</label>
+                        <input type="text" id="position" class="input" placeholder="e.g., Software Engineer, Data Scientist" required>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label for="skills" class="label">Skills (comma separated) *</label>
+                        <input type="text" id="skills" class="input" placeholder="Python, React, Machine Learning, etc." required>
+                    </div>
+
+                    <div class="grid md:grid-cols-2">
+                        <div class="space-y-2">
+                            <label for="experience" class="label">Years of Experience *</label>
+                            <input type="number" id="experience" class="input" placeholder="5" min="0" required>
+                        </div>
+                        <div class="space-y-2">
+                            <label for="workMode" class="label">Preferred Work Mode *</label>
+                            <select id="workMode" class="select" required>
+                                <option value="" disabled selected>Select work mode</option>
+                                <option value="remote">Remote</option>
+                                <option value="onsite">Onsite</option>
+                                <option value="hybrid">Hybrid</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-2">
+                        <div class="space-y-2">
+                            <label for="salary" class="label">Expected Salary (USD) *</label>
+                            <input type="number" id="salary" class="input" placeholder="80000" min="0" required>
+                        </div>
+                        <div class="space-y-2">
+                            <label for="industry" class="label">Preferred Industry *</label>
+                            <input type="text" id="industry" class="input" placeholder="Tech, Finance, Healthcare, etc." required>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label for="notes" class="label">Additional Notes</label>
+                        <textarea id="notes" class="textarea" rows="4" placeholder="Any specific requirements or preferences..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-full btn-lg" id="submitBtn">Get Recommendations</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="flex items-center gap-2">
+                <i data-lucide="brain" class="text-primary"></i>
+                <span class="font-bold text-lg">Neuronix AI Solutions</span>
+            </div>
+            <p class="text-muted-foreground text-center" style="font-size: 0.875rem;">Empowering the Future with AI</p>
+            <p class="text-muted-foreground" style="font-size: 0.75rem;">© 2025 Neuronix AI Solutions. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="theme-toggle.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+
+    <script type="module">
+        import { showToast, apiCall } from './app.js';
+        import { initNavbar, isLoggedIn, getCurrentUser } from './auth.js';
+
+        // Initialize navbar
+        document.addEventListener('DOMContentLoaded', () => {
+            initNavbar();
+            
+            // Setup logout button
+            const logoutBtn = document.getElementById('logoutBtn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    import('./auth.js').then(module => {
+                        module.logout();
+                    });
+                });
+            }
+        });
+
+        // Check auth on load
+        if (!isLoggedIn()) {
+            window.location.href = 'login.html';
+        }
+        
+        const user = getCurrentUser();
+        if (user && user.email) {
+            document.getElementById('email').value = user.email;
+        }
+
+        const form = document.getElementById('structuredForm');
+        const submitBtn = document.getElementById('submitBtn');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            if (!isLoggedIn()) {
+                showToast('You must be logged in', 'error');
+                setTimeout(() => window.location.href = 'login.html', 1500);
+                return;
+            }
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Analyzing...';
+
+            const formData = {
+                fullName: document.getElementById('fullName').value,
+                email: document.getElementById('email').value,
+                job_title: document.getElementById('position').value, // Changed to match backend expectation
+                skills: document.getElementById('skills').value.split(',').map(s => s.trim()), // Send as array
+                experience: document.getElementById('experience').value,
+                workMode: document.getElementById('workMode').value,
+                salary: document.getElementById('salary').value,
+                industry: document.getElementById('industry').value,
+                location: "Remote", // Defaulting for now or add field
+                notes: document.getElementById('notes').value
+            };
+
+            try {
+                // Call Python Backend
+                const response = await apiCall('/api/recommend/form', 'POST', formData);
+                
+                if (response.status === 'success') {
+                    // Save results to localStorage to display on results page
+                    localStorage.setItem('jobResults', JSON.stringify(response.jobs));
+                    
+                    showToast('Analysis complete! Redirecting to results...');
+                    setTimeout(() => {
+                        window.location.href = 'results.html';
+                    }, 1000);
+                } else {
+                    throw new Error(response.message || 'Failed to get recommendations');
+                }
+
+            } catch (error) {
+                console.error(error);
+                showToast(error.message || "Failed to process request", 'error');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Get Recommendations';
+            }
+        });
+    </script>
+    
+    <script type="module">
+        import { initNavbar, logout } from './auth.js';
+        
+        // Initialize navbar
+        document.addEventListener('DOMContentLoaded', () => {
+            initNavbar();
+            
+            // Setup logout button
+            const logoutBtn = document.getElementById('logoutBtn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    logout();
+                });
+            }
+        });
+    </script>
+</body>
+</html>
